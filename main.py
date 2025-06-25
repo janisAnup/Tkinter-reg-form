@@ -3,55 +3,53 @@ from tkinter import messagebox
 import designs
 
 window = tk.Tk()
-window.title("Modern Registration Form")
-window.geometry("400x600")
+window.title("Stylish Registration Form")
+window.geometry("420x620")
 window.configure(bg=designs.bg_color)
 
 # Title
-tk.Label(window, text="Register Now", font=("Arial", 16, "bold"), bg=designs.bg_color).pack(pady=10)
+tk.Label(window, text="Register Now", font=("Segoe UI", 16, "bold"),
+         bg=designs.bg_color, fg="#66fcf1").pack(pady=15)
 
-# Name
-tk.Label(window, text="Name", font=designs.label_font, bg=designs.bg_color).pack()
-entry_name = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
-entry_name.pack()
+def create_labeled_entry(label_text):
+    tk.Label(window, text=label_text, font=designs.label_font,
+             bg=designs.bg_color, fg=designs.label_color).pack(pady=(10, 2))
+    entry = tk.Entry(window, width=designs.entry_width, font=designs.entry_font,
+                     bg=designs.entry_bg, fg=designs.entry_fg, insertbackground=designs.entry_fg)
+    entry.pack()
+    return entry
 
-# Email
-tk.Label(window, text="Email", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
-entry_email = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
-entry_email.pack()
-
-# Password
-tk.Label(window, text="Password", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
-entry_password = tk.Entry(window, width=designs.entry_width, font=designs.entry_font, show="*")
-entry_password.pack()
-
-# Confirm Password
-tk.Label(window, text="Confirm Password", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
-entry_confirm = tk.Entry(window, width=designs.entry_width, font=designs.entry_font, show="*")
-entry_confirm.pack()
-
-# Age
-tk.Label(window, text="Age", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
-entry_age = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
-entry_age.pack()
+entry_name = create_labeled_entry("Name")
+entry_email = create_labeled_entry("Email")
+entry_password = create_labeled_entry("Password")
+entry_password.config(show="*")
+entry_confirm = create_labeled_entry("Confirm Password")
+entry_confirm.config(show="*")
+entry_age = create_labeled_entry("Age")
 
 # Gender
-tk.Label(window, text="Gender", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+tk.Label(window, text="Gender", font=designs.label_font,
+         bg=designs.bg_color, fg=designs.label_color).pack(pady=(10, 2))
 gender_var = tk.StringVar(value="None")
-tk.Radiobutton(window, text="Male", variable=gender_var, value="Male", bg=designs.bg_color).pack()
-tk.Radiobutton(window, text="Female", variable=gender_var, value="Female", bg=designs.bg_color).pack()
-tk.Radiobutton(window, text="Other", variable=gender_var, value="Other", bg=designs.bg_color).pack()
+gender_frame = tk.Frame(window, bg=designs.bg_color)
+gender_frame.pack()
+for gender in ["Male", "Female", "Other"]:
+    tk.Radiobutton(gender_frame, text=gender, variable=gender_var, value=gender,
+                   bg=designs.bg_color, fg=designs.label_color, selectcolor=designs.bg_color).pack(side="left", padx=10)
 
 # Country Dropdown
-tk.Label(window, text="Country", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+tk.Label(window, text="Country", font=designs.label_font,
+         bg=designs.bg_color, fg=designs.label_color).pack(pady=(10, 2))
 country_var = tk.StringVar()
-country_dropdown = tk.OptionMenu(window, country_var, "India", "USA", "UK", "Canada", "Australia")
-country_dropdown.config(width=28, font=designs.entry_font)
-country_dropdown.pack()
+country_menu = tk.OptionMenu(window, country_var, "India", "USA", "UK", "Canada", "Germany")
+country_menu.config(font=designs.entry_font, width=28, bg=designs.entry_bg, fg=designs.entry_fg)
+country_menu.pack()
 
-# Terms Checkbox
+# Terms
 terms_var = tk.IntVar()
-tk.Checkbutton(window, text="I agree to the Terms & Conditions", variable=terms_var, bg=designs.bg_color).pack(pady=(10, 0))
+tk.Checkbutton(window, text="I agree to the Terms & Conditions", variable=terms_var,
+               bg=designs.bg_color, fg=designs.checkbox_color, activebackground=designs.bg_color,
+               activeforeground=designs.checkbox_color, selectcolor=designs.bg_color).pack(pady=10)
 
 # Submit Button
 def submit_form():
@@ -71,7 +69,6 @@ def submit_form():
         messagebox.showwarning("Error", "You must accept the Terms & Conditions.")
     else:
         messagebox.showinfo("Success", f"Welcome {name}!\nYou are registered.")
-        # Clear entries
         entry_name.delete(0, 'end')
         entry_email.delete(0, 'end')
         entry_password.delete(0, 'end')
@@ -85,3 +82,4 @@ tk.Button(window, text="Submit", command=submit_form,
           bg=designs.btn_bg, fg=designs.btn_fg, font=designs.button_font).pack(pady=20)
 
 window.mainloop()
+

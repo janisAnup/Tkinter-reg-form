@@ -1,17 +1,19 @@
 # designs.py
 
 # Colors
-bg_color = "#f0f0f0"
-label_color = "#333333"
-entry_bg = "#ffffff"
-entry_fg = "#000000"
-btn_bg = "#4CAF50"
-btn_fg = "#ffffff"
+bg_color = "#1e1e2f"        # Deep navy background
+label_color = "#ffffff"     # White labels
+entry_bg = "#2c2c3e"        # Darker entry boxes
+entry_fg = "#ffffff"        # White text
+btn_bg = "#4CAF50"          # Green button
+btn_fg = "#ffffff"          # White button text
+checkbox_color = "#cfcfcf"  # Lighter checkbox
 
 # Fonts
-label_font = ("Arial", 12)
-entry_font = ("Arial", 11)
-button_font = ("Arial", 11, "bold")
+label_font = ("Segoe UI", 12)
+entry_font = ("Segoe UI", 11)
+button_font = ("Segoe UI", 11, "bold")
 
 # Sizes
 entry_width = 30
+
