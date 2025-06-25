@@ -4,7 +4,7 @@ import designs
 
 window = tk.Tk()
 window.title("Stylish Registration Form")
-window.geometry("420x620")
+window.geometry("450x700")
 window.configure(bg=designs.bg_color)
 
 # Title
@@ -79,7 +79,7 @@ def submit_form():
         terms_var.set(0)
 
 tk.Button(window, text="Submit", command=submit_form,
-          bg=designs.btn_bg, fg=designs.btn_fg, font=designs.button_font).pack(pady=20)
+          bg=designs.btn_bg, fg=designs.btn_fg, font=designs.button_font).pack(pady=40)
 
 window.mainloop()
 
