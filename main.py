@@ -1,100 +1,87 @@
-# main.py
-
-import customtkinter as ctk
-import tkinter.messagebox as msg
+import tkinter as tk
+from tkinter import messagebox
 import designs
 
-# Initialize CustomTkinter theme
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
-
-# Main window
-window = ctk.CTk()
-window.title("Registration Form")
-window.geometry("400x400")
-window.configure(fg_color=designs.bg_color)
+window = tk.Tk()
+window.title("Modern Registration Form")
+window.geometry("400x600")
+window.configure(bg=designs.bg_color)
 
 # Title
-label_title = ctk.CTkLabel(
-    window, 
-    text="Register Now", 
-    font=designs.font_title
-)
-label_title.pack(pady=15)
+tk.Label(window, text="Register Now", font=("Arial", 16, "bold"), bg=designs.bg_color).pack(pady=10)
 
 # Name
-label_name = ctk.CTkLabel(
-    window, 
-    text="Name", 
-    font=designs.font_label
-)
-label_name.pack()
-
-entry_name = ctk.CTkEntry(
-    window, 
-    width=designs.entry_width, 
-    font=designs.font_entry,
-    placeholder_text="Enter your name"
-)
-entry_name.pack(pady=5)
+tk.Label(window, text="Name", font=designs.label_font, bg=designs.bg_color).pack()
+entry_name = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
+entry_name.pack()
 
 # Email
-label_email = ctk.CTkLabel(
-    window, 
-    text="Email", 
-    font=designs.font_label
-)
-label_email.pack()
-
-entry_email = ctk.CTkEntry(
-    window, 
-    width=designs.entry_width, 
-    font=designs.font_entry,
-    placeholder_text="Enter your email"
-)
-entry_email.pack(pady=5)
+tk.Label(window, text="Email", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+entry_email = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
+entry_email.pack()
 
 # Password
-label_password = ctk.CTkLabel(
-    window, 
-    text="Password", 
-    font=designs.font_label
-)
-label_password.pack()
+tk.Label(window, text="Password", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+entry_password = tk.Entry(window, width=designs.entry_width, font=designs.entry_font, show="*")
+entry_password.pack()
 
-entry_password = ctk.CTkEntry(
-    window, 
-    width=designs.entry_width, 
-    font=designs.font_entry,
-    show="*",
-    placeholder_text="Enter password"
-)
-entry_password.pack(pady=5)
+# Confirm Password
+tk.Label(window, text="Confirm Password", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+entry_confirm = tk.Entry(window, width=designs.entry_width, font=designs.entry_font, show="*")
+entry_confirm.pack()
 
-# Submit Function
-def submit():
+# Age
+tk.Label(window, text="Age", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+entry_age = tk.Entry(window, width=designs.entry_width, font=designs.entry_font)
+entry_age.pack()
+
+# Gender
+tk.Label(window, text="Gender", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+gender_var = tk.StringVar(value="None")
+tk.Radiobutton(window, text="Male", variable=gender_var, value="Male", bg=designs.bg_color).pack()
+tk.Radiobutton(window, text="Female", variable=gender_var, value="Female", bg=designs.bg_color).pack()
+tk.Radiobutton(window, text="Other", variable=gender_var, value="Other", bg=designs.bg_color).pack()
+
+# Country Dropdown
+tk.Label(window, text="Country", font=designs.label_font, bg=designs.bg_color).pack(pady=(10, 0))
+country_var = tk.StringVar()
+country_dropdown = tk.OptionMenu(window, country_var, "India", "USA", "UK", "Canada", "Australia")
+country_dropdown.config(width=28, font=designs.entry_font)
+country_dropdown.pack()
+
+# Terms Checkbox
+terms_var = tk.IntVar()
+tk.Checkbutton(window, text="I agree to the Terms & Conditions", variable=terms_var, bg=designs.bg_color).pack(pady=(10, 0))
+
+# Submit Button
+def submit_form():
     name = entry_name.get()
     email = entry_email.get()
     password = entry_password.get()
+    confirm = entry_confirm.get()
+    age = entry_age.get()
+    gender = gender_var.get()
+    country = country_var.get()
 
-    if name and email and password:
-        msg.showinfo("Success", f"Welcome {name}!\nYou have registered successfully.")
-        # Clear fields
+    if not (name and email and password and confirm and age and gender != "None" and country):
+        messagebox.showwarning("Error", "Please fill in all fields.")
+    elif password != confirm:
+        messagebox.showerror("Error", "Passwords do not match.")
+    elif terms_var.get() == 0:
+        messagebox.showwarning("Error", "You must accept the Terms & Conditions.")
+    else:
+        messagebox.showinfo("Success", f"Welcome {name}!\nYou are registered.")
+        # Clear entries
         entry_name.delete(0, 'end')
         entry_email.delete(0, 'end')
         entry_password.delete(0, 'end')
-    else:
-        msg.showwarning("Missing Info", "Please fill in all fields.")
+        entry_confirm.delete(0, 'end')
+        entry_age.delete(0, 'end')
+        gender_var.set("None")
+        country_var.set("")
+        terms_var.set(0)
 
-# Submit Button
-submit_btn = ctk.CTkButton(
-    window,
-    text="Submit",
-    font=designs.font_button,
-    fg_color=designs.button_color,
-    command=submit
-)
-submit_btn.pack(pady=20)
+tk.Button(window, text="Submit", command=submit_form,
+          bg=designs.btn_bg, fg=designs.btn_fg, font=designs.button_font).pack(pady=20)
 
 window.mainloop()
-
