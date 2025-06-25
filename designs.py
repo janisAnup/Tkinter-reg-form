@@ -1,15 +1,18 @@
-# css.py
+# designs.py
 
-# Fonts
-font_label = ("Arial", 12, "bold")
-font_entry = ("Arial", 11)
+# Background color for the main window
+bg_color = "#1e1e2f"
 
-# Colors
-bg_color = "#f0f0f0"
-entry_bg = "#ffffff"
-entry_fg = "#000000"
-btn_color = "#4CAF50"
-btn_text = "white"
+# Font styles
+font_title = ("Arial", 20, "bold")
+font_label = ("Arial", 12)
+font_entry = ("Arial", 12)
+font_button = ("Arial", 12, "bold")
 
-# Sizes
-entry_width = 30
+# Entry field styles
+entry_bg = "#2a2a3d"
+entry_fg = "#ffffff"
+entry_width = 250
+
+# Button color
+button_color = "#3a7ff6"
